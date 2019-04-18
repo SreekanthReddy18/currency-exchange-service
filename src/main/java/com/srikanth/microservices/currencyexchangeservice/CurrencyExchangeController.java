@@ -2,6 +2,7 @@ package com.srikanth.microservices.currencyexchangeservice;
 
 import java.math.BigDecimal;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import com.srikanth.microservices.currencyexchangeservice.bean.ExchangeValue;
 @RestController
 public class CurrencyExchangeController {
 	
+	private Logger logger = org.slf4j.LoggerFactory.getLogger(CurrencyExchangeController.class);
+
 	@Autowired
 	private Environment environment;
 
@@ -21,7 +24,7 @@ public class CurrencyExchangeController {
 		 
 		ExchangeValue exchangeValue= new ExchangeValue(1000L,from,to,BigDecimal.valueOf(65));
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
-		
+		logger.info("{}",exchangeValue);
 		return exchangeValue;
 	}
 }
